@@ -13,6 +13,14 @@
   cursor: pointer;
 }
 
+@media (max-width: 868px) {
+  .profile__add-button{
+    width: 282px;
+    height: 50px;
+    margin-left: 10px;
+  }
+}
+
 @media (max-width: 629px) {
   .profile__add-button{
     width: 282px;

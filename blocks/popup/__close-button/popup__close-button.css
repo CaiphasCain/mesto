@@ -7,6 +7,7 @@
   right: -35px;
   top: -35px;
   background-image: url(../../../images/close-icon.svg);
+  background-color: rgba(0, 0, 0, 0);
   background-position: center;
   background-size: cover;
   cursor: pointer;

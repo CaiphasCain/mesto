@@ -10,6 +10,12 @@
 
 @media (max-width: 936px){
   .elements{
+    padding-bottom: 48px;
+  }
+}
+
+@media (max-width: 321px){
+  .elements{
     padding: 0 19px 48px;
   }
 }

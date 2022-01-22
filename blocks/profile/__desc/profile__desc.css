@@ -4,6 +4,16 @@
   font-size: 18px;
   line-height: 22px;
   color: #FFFFFF;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 450px;
+}
+
+@media (max-width: 868px) {
+  .profile__desc{
+    max-width: 350px;
+  }
 }
 
 @media (max-width: 690px) {
@@ -12,5 +22,11 @@
     line-height: 17px;
     text-align: center;
     margin-bottom: 36px;
+  }
+}
+
+@media (max-width: 420px) {
+  .profile__desc{
+    max-width: 250px;
   }
 }

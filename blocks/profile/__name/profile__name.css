@@ -6,6 +6,16 @@
   font-size: 42px;
   line-height: 48px;
   color: #FFFFFF;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 450px;
+}
+
+@media (max-width: 868px) {
+  .profile__name{
+    max-width: 350px;
+  }
 }
 
 @media (max-width: 690px) {
@@ -14,5 +24,11 @@
     line-height: 33px;
     text-align: center;
     padding-bottom: 14px;
+  }
+}
+
+@media (max-width: 420px) {
+  .profile__name{
+    max-width: 250px;
   }
 }
