@@ -1,0 +1,24 @@
+.popup__container_image{
+  width: auto;
+  height: auto;
+  max-width: 75vw;
+  max-height: 75vh;
+  padding: 0;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  position: relative;
+  line-height: 0;
+}
+
+@media (max-width: 936px) {
+  .popup__container_image {
+      width: auto;
+      height: auto;
+      max-width: 75vw;
+      max-height: 75vh;
+      border-radius: 0;
+      margin: auto;
+    }
+}

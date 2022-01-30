@@ -26,10 +26,10 @@
       <button aria-label="добавить" class="profile__add-button button" type="button"></button>
     </section>
 
-    <section class="popup">
+    <section class="popup" id="popupEdit">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="popup__submit-form">
+        <form class="popup__form" id="formEdit" name="popup__submit-form">
           <button class="popup__close-button button" type="button" aria-label="закрыть"></button>
           <input class="popup__form-input" id="popup__form-name" type="text" name="popup__form-name" value="">
           <input class="popup__form-input" id="popup__form-desc" type="text" name="popup__form-desc" value="">
@@ -37,57 +37,47 @@
         </form>
       </div>
     </section>
-  
+
+    <section class="popup" id="popupAdd">
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" id="formAdd" name="popup__submit-form">
+          <button class="popup__close-button button" type="button" aria-label="закрыть"></button>
+          <input class="popup__form-input" id="popup__form-place" type="text" name="popup__form-place" value="">
+          <input class="popup__form-input" id="popup__form-link" type="text" name="popup__form-link" value="">
+          <button class="popup__submit-button link" type="submit">Создать</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="popup popup_img popup_opened" id="popupImg">
+      <div class="popup__container popup__container_image">
+        <button class="popup__close-button button" type="button" aria-label="закрыть"></button>
+        <img class="popup__image" src="../1.jpg" alt="">
+        <h2 class="popup__desc">Новое место</h2>
+      </div>
+    </section>
 
     <section class="elements">
-      <div class="element">
-        <img src="./images/dombai.jpg" class="element__photo" alt="Домбай">
-        <div class="element__desc">
-          <h2 class="element__name">Домбай</h2>
-          <button class="element__like" type="button" aria-label="лайк"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./images/elbrus.jpg" class="element__photo" alt="Эльбрус">
-        <div class="element__desc">
-          <h2 class="element__name">Эльбрус</h2>
-          <button class="element__like" type="button" aria-label="лайк"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./images/karachaev.jpg" class="element__photo" alt="Карачаев">
-        <div class="element__desc">
-          <h2 class="element__name">Карачаев</h2>
-          <button class="element__like" type="button" aria-label="лайк"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./images/dombai.jpg" class="element__photo" alt="Домбай">
-        <div class="element__desc">
-          <h2 class="element__name">Домбай</h2>
-          <button class="element__like" type="button" aria-label="лайк"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./images/elbrus.jpg" class="element__photo" alt="Эльбрус">
-        <div class="element__desc">
-          <h2 class="element__name">Эльбрус</h2>
-          <button class="element__like" type="button" aria-label="лайк"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img src="./images/karachaev.jpg" class="element__photo" alt="Карачаево-Черкесия">
-        <div class="element__desc">
-          <h2 class="element__name">Карачаево-Черкесия</h2>
-          <button class="element__like" type="button" aria-label="лайк"></button>
-        </div>
-      </div>
+      
     </section>
   </main>
   
   <footer class="footer">
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
+
+  <template id="elementTemplate">
+    <div class="element">
+      <button class="element__delete button" type="button" aria-label="удалить"></button>
+      <img src="" class="element__photo" alt="Укажите ссылку">
+      <div class="element__desc">
+       <h2 class="element__name"></h2>
+       <button class="element__like" type="button" aria-label="лайк"></button>
+     </div>
+    </div>
+  </template>
+
   <script src="./scripts/index.js"></script>
 </body>
 </html>  
