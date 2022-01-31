@@ -15,6 +15,9 @@ const profileDesc = document.querySelector('.profile__desc')
 const element = document.querySelector('.elements')
 const likeButtons = element.querySelectorAll('.element__like')
 const template = document.querySelector('#elementTemplate').content;
+const popupImg = document.querySelector('#popupImg')
+const image = document.querySelector('.popup__image')
+let description = document.querySelector('.popup__desc')
 const initialCards = [
   {
     name: 'Архыз',
@@ -90,7 +93,7 @@ function renderItem(name, src){
   let link = src
   newItem.querySelector('.element__photo').setAttribute('src', link)
   newItem.querySelector('.element__photo').setAttribute('alt', place)
-  newItem.querySelector('.element__name').innerText = place
+  newItem.querySelector('.element__name').textContent = place
   addListeners(newItem)
   element.appendChild(newItem);
   placeInput.value = ''
@@ -100,6 +103,7 @@ function renderItem(name, src){
 function addListeners(el){
   el.querySelector('.element__delete').addEventListener('click', handleDelete)
   el.querySelector('.element__like').addEventListener('click', handleLike)
+  el.querySelector('.element__photo').addEventListener('click', handlePhoto)
 }
 
 function handleDelete(event){
@@ -108,6 +112,15 @@ function handleDelete(event){
 
 function handleLike(){
   this.classList.toggle('element__like_active');
+};
+
+function handlePhoto(event){
+  const path = event.target.src;
+  let ele = event.target.closest('.element');
+  let bottomText = ele.querySelector('.element__name').textContent;
+  description.textContent = bottomText;
+  image.setAttribute('src', path);
+  popupImg.classList.toggle('popup_opened');
 };
 
 profileEditButton.addEventListener('click', onEditButtonClick);

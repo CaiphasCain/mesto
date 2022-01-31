@@ -8,8 +8,13 @@
   background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
-  display: none;
-  z-index: 3;
+  display: flex;
+  opacity: 0;
+  z-index: -1;
+  visibility: hidden;
+  transition-property: opacity, visibility, z-index;
+  transition-duration: .5s, 0s, 0s;
+  transition-delay: 0s, .5s, .5s;
 }
 
 @media (max-width: 936px) {
