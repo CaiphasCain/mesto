@@ -13,11 +13,10 @@ const linkInput = document.querySelector('#popup__form-link')
 const profileName = document.querySelector('.profile__name')
 const profileDesc = document.querySelector('.profile__desc')
 const element = document.querySelector('.elements')
-const likeButtons = element.querySelectorAll('.element__like')
 const template = document.querySelector('#elementTemplate').content;
 const popupImg = document.querySelector('#popupImg')
 const image = document.querySelector('.popup__image')
-let description = document.querySelector('.popup__desc')
+const description = document.querySelector('.popup__desc')
 const initialCards = [
   {
     name: 'Архыз',
@@ -64,20 +63,22 @@ function onAddButtonClick() {
 };
 
 function onCloseButtonClick(event) {
-  event.target.closest('.popup').classList.toggle('popup_opened');
+  togglePopup(event.target.closest('.popup')) ;
 };
 
-function editFormSubmitHandler (evt) {
+function handleEditFormSubmit (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileDesc.textContent = jobInput.value;
   togglePopup(popupEdit)
 };
 
-function addFormSubmitHandler (evt) {
+function handleAddFormSubmit (evt) {
   evt.preventDefault();
   togglePopup(popupAdd)
   renderItem(placeInput.value, linkInput.value)
+  placeInput.value = ''
+  linkInput.value = ''
 };
 
 function render() {
@@ -87,17 +88,19 @@ function render() {
     renderItem(name, link)});
 }
 
+function createCard(name, src){
+  const cardElement = template.cloneNode(true);
+  const elPhoto = cardElement.querySelector('.element__photo')
+  elPhoto.setAttribute('src', src)
+  elPhoto.setAttribute('alt', name)
+  cardElement.querySelector('.element__name').textContent = name
+  addListeners(cardElement)
+  return cardElement
+}
+
 function renderItem(name, src){
-  const newItem = template.cloneNode(true);
-  let place = name
-  let link = src
-  newItem.querySelector('.element__photo').setAttribute('src', link)
-  newItem.querySelector('.element__photo').setAttribute('alt', place)
-  newItem.querySelector('.element__name').textContent = place
-  addListeners(newItem)
-  element.appendChild(newItem);
-  placeInput.value = ''
-  linkInput.value = ''
+  const newItem = createCard(name, src)
+  element.prepend(newItem);
 }
 
 function addListeners(el){
@@ -110,17 +113,16 @@ function handleDelete(event){
   event.target.closest('.element').remove();
 }
 
-function handleLike(){
-  this.classList.toggle('element__like_active');
+function handleLike(event){
+  event.target.classList.toggle('element__like_active');
 };
 
 function handlePhoto(event){
-  const path = event.target.src;
-  let ele = event.target.closest('.element');
-  let bottomText = ele.querySelector('.element__name').textContent;
-  description.textContent = bottomText;
-  image.setAttribute('src', path);
-  popupImg.classList.toggle('popup_opened');
+  const alt = event.target.alt;
+  description.textContent = alt;
+  image.setAttribute('src', event.target.src);
+  image.setAttribute('alt', alt);
+  togglePopup(popupImg);
 };
 
 profileEditButton.addEventListener('click', onEditButtonClick);
@@ -128,6 +130,6 @@ profileAddButton.addEventListener('click', onAddButtonClick);
 popupCloseButtons.forEach((el)=>{
   el.addEventListener('click', onCloseButtonClick
   )});
-formEdit.addEventListener('submit', editFormSubmitHandler);
-formAdd.addEventListener('submit', addFormSubmitHandler);
+formEdit.addEventListener('submit', handleEditFormSubmit);
+formAdd.addEventListener('submit', handleAddFormSubmit);
 render()
