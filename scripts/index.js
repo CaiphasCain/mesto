@@ -4,6 +4,7 @@ const popupEdit = document.querySelector('#popupEdit');
 const popupAdd = document.querySelector('#popupAdd');
 const popupSubmitButton = document.querySelector('.popup__submit-button');
 const popupCloseButtons = document.querySelectorAll('.popup__close-button');
+const popups = document.querySelectorAll('.popup');
 const formEdit = document.querySelector('#formEdit')
 const formAdd = document.querySelector('#formAdd')
 const nameInput = document.querySelector('#popup__form-name')
@@ -17,6 +18,7 @@ const template = document.querySelector('#elementTemplate').content;
 const popupImg = document.querySelector('#popupImg')
 const image = document.querySelector('.popup__image')
 const description = document.querySelector('.popup__desc')
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -56,15 +58,24 @@ function onEditButtonClick() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDesc.textContent;
   togglePopup(popupEdit)
+  addKeydown()
 };
 
 function onAddButtonClick() {
   togglePopup(popupAdd)
+  addKeydown()
 };
 
-function onCloseButtonClick(event) {
-  togglePopup(event.target.closest('.popup')) ;
+// function onCloseButtonClick(event) {
+//   togglePopup(event.target.closest('.popup'));
+// };
+
+function onPopupClick(event) {
+  if (event.target.closest('.popup__close-button')) {togglePopup(event.target.closest('.popup'))};
+  if (!event.target.closest('.popup__container')) {togglePopup(event.target.closest('.popup'))};
 };
+
+
 
 function handleEditFormSubmit (evt) {
   evt.preventDefault();
@@ -123,12 +134,27 @@ function handlePhoto(event){
   image.setAttribute('src', event.target.src);
   image.setAttribute('alt', alt);
   togglePopup(popupImg);
+  addKeydown()
 };
+
+function handleKeydown(event){
+  if (event.keyCode == 27) {
+    togglePopup(document.querySelector('.popup_opened'));
+    document.removeEventListener('keydown', handleKeydown);
+}
+};
+
+function addKeydown () {
+  document.addEventListener('keydown', handleKeydown)
+}
 
 profileEditButton.addEventListener('click', onEditButtonClick);
 profileAddButton.addEventListener('click', onAddButtonClick);
-popupCloseButtons.forEach((el)=>{
-  el.addEventListener('click', onCloseButtonClick
+// popupCloseButtons.forEach((el)=>{
+//   el.addEventListener('click', onCloseButtonClick
+//   )});
+popups.forEach((el)=>{
+  el.addEventListener('click', onPopupClick
   )});
 formEdit.addEventListener('submit', handleEditFormSubmit);
 formAdd.addEventListener('submit', handleAddFormSubmit);

@@ -15,6 +15,7 @@
   transition-property: opacity, visibility, z-index;
   transition-duration: .5s, 0s, 0s;
   transition-delay: 0s, .5s, .5s;
+  cursor: pointer;
 }
 
 @media (max-width: 936px) {
