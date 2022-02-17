@@ -46,24 +46,35 @@ const initialCards = [
   }
 ];
 
-function toggleClass(popup, className){
-  popup.classList.toggle(className)
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscape);
 }
 
-function togglePopup(popup){
-  toggleClass(popup, 'popup_opened')
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
 }
+
+// function toggleClass(popup, className){
+//   popup.classList.toggle(className)
+// }
+
+// function togglePopup(popup){
+//   toggleClass(popup, 'popup_opened')
+// }
 
 function onEditButtonClick() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDesc.textContent;
-  togglePopup(popupEdit)
-  addKeydown()
+  openPopup(popupEdit)
 };
 
 function onAddButtonClick() {
-  togglePopup(popupAdd)
-  addKeydown()
+  const addSubmit = document.querySelector('#addsubmit')
+  openPopup(popupAdd)
+  addSubmit.setAttribute('disabled','')
+  addSubmit.classList.add(`popup__submit-button_inactive`)
 };
 
 // function onCloseButtonClick(event) {
@@ -71,8 +82,8 @@ function onAddButtonClick() {
 // };
 
 function onPopupClick(event) {
-  if (event.target.closest('.popup__close-button')) {togglePopup(event.target.closest('.popup'))};
-  if (!event.target.closest('.popup__container')) {togglePopup(event.target.closest('.popup'))};
+  if (event.target.closest('.popup__close-button')) {closePopup(event.target.closest('.popup'))};
+  if (!event.target.closest('.popup__container')) {closePopup(event.target.closest('.popup'))};
 };
 
 
@@ -81,12 +92,12 @@ function handleEditFormSubmit (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileDesc.textContent = jobInput.value;
-  togglePopup(popupEdit)
+  closePopup(popupEdit)
 };
 
 function handleAddFormSubmit (evt) {
   evt.preventDefault();
-  togglePopup(popupAdd)
+  closePopup(popupAdd)
   renderItem(placeInput.value, linkInput.value)
   placeInput.value = ''
   linkInput.value = ''
@@ -133,19 +144,14 @@ function handlePhoto(event){
   description.textContent = alt;
   image.setAttribute('src', event.target.src);
   image.setAttribute('alt', alt);
-  togglePopup(popupImg);
-  addKeydown()
+  openPopup(popupImg);
 };
 
-function handleKeydown(event){
-  if (event.keyCode == 27) {
-    togglePopup(document.querySelector('.popup_opened'));
-    document.removeEventListener('keydown', handleKeydown);
-}
-};
-
-function addKeydown () {
-  document.addEventListener('keydown', handleKeydown)
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup);
+  }
 }
 
 profileEditButton.addEventListener('click', onEditButtonClick);
