@@ -32,7 +32,7 @@ export default class Card {
   }
 
   _addListeners() {
-    this._elementImage.addEventListener('click', () => this._handlePhoto() );
+    this._elementImage.addEventListener('click', () => this._handlePhoto(this._name, this._link) );
     this._elementLike.addEventListener('click', () => this._handleLike() );
     this._deleteCard.addEventListener('click', () => this._handleDelete() );
 }

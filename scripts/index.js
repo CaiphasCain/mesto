@@ -14,6 +14,9 @@ const linkInput = document.querySelector('#popup__form-link')
 const profileName = document.querySelector('.profile__name')
 const profileDesc = document.querySelector('.profile__desc')
 const element = document.querySelector('.elements')
+const popupImg = document.querySelector('#popupImg')
+const image = document.querySelector('.popup__image')
+const description = document.querySelector('.popup__desc')
 
 const initialCards = [
   {
@@ -65,23 +68,23 @@ function closePopup(popup) {
   document.addEventListener('keydown', closeByEscape);
 }
 
-function onEditButtonClick() {
+function handleEditButtonClick() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDesc.textContent;
+  editProfileValidator.resetValidation();
   openPopup(popupEdit)
 };
 
-function onAddButtonClick() {
-  const addSubmit = document.querySelector('#addsubmit')
+function handleAddButtonClick() {
+  addCardValidator.resetValidation();
   openPopup(popupAdd)
-  addSubmit.setAttribute('disabled','')
-  addSubmit.classList.add(`popup__submit-button_inactive`)
+  addCardValidator.enableValidation();
 };
 
-function onPopupClick(event) {
-  if (event.target.closest('.popup__close-button')) {closePopup(event.target.closest('.popup'))};
-  if (!event.target.closest('.popup__container')) {closePopup(event.target.closest('.popup'))};
-};
+// function handlePopupClick(event) {
+//   if (event.target.closest('.popup__close-button')) {closePopup(event.target.closest('.popup'))};
+//   if (!event.target.closest('.popup__container')) {closePopup(event.target.closest('.popup'))};
+// };
 
 function handleEditFormSubmit (evt) {
   evt.preventDefault();
@@ -97,35 +100,32 @@ function handleAddFormSubmit (evt) {
   temp.name = placeInput.value
   temp.link = linkInput.value
   render(temp)
-  placeInput.value = ''
-  linkInput.value = ''
+  formAdd.reset()
 };
 ///////////////////////////////////////////////////////////
-function handlePhoto(){
-  const popupImg = document.querySelector('#popupImg')
-  const image = document.querySelector('.popup__image')
-  const description = document.querySelector('.popup__desc')
-  const alt = this._elementImage.alt;
-  description.textContent = alt;
-  image.setAttribute('src', this._elementImage.src);
-  image.setAttribute('alt', alt);
+function handlePhoto(desc, img){
+  description.textContent = desc;
+  image.setAttribute('src', img);
+  image.setAttribute('alt', desc);
   openPopup(popupImg);
 };
 
+function createCard(item) {
+  const card = new Card(item, '#elementTemplate', handlePhoto);
+  const cardElement = card.generateCard();
+  return cardElement
+}
+
 function renderInitial(){
   initialCards.forEach((item) => {  
-   const card = new Card(item, '#elementTemplate', handlePhoto);
-   const cardElement = card.generateCard();
-    // Добавляем в DOM
-   element.prepend(cardElement);
-  });
+    const cardElement = createCard(item)
+    element.prepend(cardElement);
+   });
 }
 
 function render(item){
-   const card = new Card(item, '#elementTemplate', handlePhoto);
-   const cardElement = card.generateCard();
-    // Добавляем в DOM
-   element.prepend(cardElement);
+  const cardElement = createCard(item)
+  element.prepend(cardElement);
 }
 
 function closeByEscape(evt) {
@@ -135,14 +135,24 @@ function closeByEscape(evt) {
   }
 }
 
-profileEditButton.addEventListener('click', onEditButtonClick);
-profileAddButton.addEventListener('click', onAddButtonClick);
+profileEditButton.addEventListener('click', handleEditButtonClick);
+profileAddButton.addEventListener('click', handleAddButtonClick);
 // popupCloseButtons.forEach((el)=>{
 //   el.addEventListener('click', onCloseButtonClick
 //   )});
-popups.forEach((el)=>{
-  el.addEventListener('click', onPopupClick
-  )});
+// popups.forEach((el)=>{
+//   el.addEventListener('click', handlePopupClick
+//   )});
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup)
+    }
+      if (evt.target.classList.contains('popup__close-button')) {
+        closePopup(popup)
+      }
+  })
+})
 formEdit.addEventListener('submit', handleEditFormSubmit);
 formAdd.addEventListener('submit', handleAddFormSubmit);
 renderInitial()
