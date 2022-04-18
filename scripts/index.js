@@ -76,9 +76,9 @@ function handleEditButtonClick() {
 };
 
 function handleAddButtonClick() {
+  formAdd.reset()
   addCardValidator.resetValidation();
   openPopup(popupAdd)
-  addCardValidator.enableValidation();
 };
 
 // function handlePopupClick(event) {
@@ -137,12 +137,7 @@ function closeByEscape(evt) {
 
 profileEditButton.addEventListener('click', handleEditButtonClick);
 profileAddButton.addEventListener('click', handleAddButtonClick);
-// popupCloseButtons.forEach((el)=>{
-//   el.addEventListener('click', onCloseButtonClick
-//   )});
-// popups.forEach((el)=>{
-//   el.addEventListener('click', handlePopupClick
-//   )});
+
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_opened')) {
