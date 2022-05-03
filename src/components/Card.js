@@ -18,7 +18,6 @@ export default class Card {
 
   generateCard() {
     this._newElement = this._getTemplate();
-    this._element = this._newElement.querySelector('.element');
     this._elementTitle = this._newElement.querySelector('.element__name');
     this._elementImage = this._newElement.querySelector('.element__photo');
     this._elementLike = this._newElement.querySelector('.element__like');
@@ -39,6 +38,7 @@ export default class Card {
   
   _handleDelete(){
     this._newElement.remove();
+    this._newElement = null
   }
   
   _handleLike(){

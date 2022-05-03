@@ -10,9 +10,15 @@
 }
 
 .popup__form-input:last-of-type{
-  margin: 0 0 45px;
+  margin: 0 0 20px;
 }
 
 .popup__form-input::placeholder{
   color: #C4C4C4;
+}
+
+@media (max-width: 936px) {
+  .popup__form-input:last-of-type {
+    margin: 0 0 20px;
+  }
 }

@@ -10,10 +10,6 @@ const formEdit = document.querySelector('#formEdit')
 const formAdd = document.querySelector('#formAdd')
 const nameInput = document.querySelector('#popup__form-name')
 const jobInput = document.querySelector('#popup__form-desc')
-const placeInput = document.querySelector('#popup__form-place')
-const linkInput = document.querySelector('#popup__form-link')
-const profileName = document.querySelector('.profile__name')
-const profileDesc = document.querySelector('.profile__desc')
 const cardListSection = '.elements'
 
 const initialCards = [
@@ -50,29 +46,32 @@ const validationConfig = {
   inputErrorClass: `popup__form-input_error`, 
   errorClass: `popup__input-error_visible` 
 };
-const editProfileValidator = new FormValidator(validationConfig, formEdit)
-const addCardValidator = new FormValidator(validationConfig, formAdd)
+const profileValidator = new FormValidator(validationConfig, formEdit)
+const cardValidator = new FormValidator(validationConfig, formAdd)
 
-editProfileValidator.enableValidation();
-addCardValidator.enableValidation();
+profileValidator.enableValidation();
+cardValidator.enableValidation();
+
+const userInf = new UserInfo({userNameSelector:'.profile__name', userAboutMeSelector: '.profile__desc'})
 
 function handleEditButtonClick() {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileDesc.textContent;
-  editProfileValidator.resetValidation();
+  const userData = (userInf.getUserInfo())
+  nameInput.value = userData.name
+  jobInput.value = userData.about
+  profileValidator.resetValidation();
   popupEdit.open()
 };
 
 function handleAddButtonClick() {
-  formAdd.reset()
-  addCardValidator.resetValidation();
+  cardValidator.resetValidation();
   popupAdd.open()
 };
 
+const photoPopup = new PopupWithImage('#popupImg')
+photoPopup.setEventListeners();
+
 function handlePhoto(desc, img){
-  const photoPopup = new PopupWithImage('#popupImg')
   photoPopup.open(desc, img);
-  photoPopup.setEventListeners();
 };
 /////////////////////////////////////////////////////////////////
 function createCard(item) {
@@ -81,38 +80,38 @@ function createCard(item) {
   return cardElement
 }
 
+const renderCard = (item) => {
+  const cardElement = createCard(item)
+  cardsList.addItem(cardElement);
+}
+
 const cardsList = new Section({
   data: initialCards,
-  renderer: (item) => {
-    const cardElement = createCard(item)
-    cardsList.addItem(cardElement);
-  }
+  renderer: renderCard
 },
 cardListSection
 )
 cardsList.renderItems(); 
 
-const popupAdd = new PopupWithForm(
-  '#popupAdd',
-  (event) => {
-    event.preventDefault();
+const popupAdd = new PopupWithForm({
+  popupSelector:'#popupAdd',
+  saveForm: (inputValues) => {
     const temp = {}
-    temp.name = placeInput.value
-    temp.link = linkInput.value
+    temp.name = inputValues.popup__form_place
+    temp.link = inputValues.popup__form_link
     popupAdd.close();
-    cardsList.renderer(temp)
+    renderCard(temp)
     popupAdd._popupForm.reset()
+    }
   }
 );
 
-const userInf = new UserInfo('.profile__name', '.profile__desc')
-const popupEdit = new PopupWithForm(
-  '#popupEdit',
-  (event) => {
-    event.preventDefault();
-    userInf.setUserInfo(nameInput.value, jobInput.value)
+const popupEdit = new PopupWithForm({
+  popupSelector: '#popupEdit',
+  saveForm: (inputValues) => {
+    userInf.setUserInfo(inputValues.popup__form_name, inputValues.popup__form_desc) 
     popupEdit.close()
-    
+    }
   }
 );
 
@@ -121,4 +120,9 @@ profileAddButton.addEventListener('click', handleAddButtonClick);
 popupEdit.setEventListeners()
 popupAdd.setEventListeners()
 
+const ava = new URL('../images/ava.jpg', import.meta.url);
+const whoIsTheGoat = [
+  // меняем исходные пути на переменные
+  { name: 'ava', image: ava },
+]; 
 import './index.css';
