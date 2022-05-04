@@ -1,7 +1,7 @@
 .popup__form-input{
   font-size: 14px;
   line-height: 17px;
-  margin: 0 0 30px;
+  margin: 0 0 11px;
   max-width: 358px;
   padding: 0 0 13px;
   box-sizing: border-box;
@@ -9,16 +9,6 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.popup__form-input:last-of-type{
-  margin: 0 0 20px;
-}
-
 .popup__form-input::placeholder{
   color: #C4C4C4;
-}
-
-@media (max-width: 936px) {
-  .popup__form-input:last-of-type {
-    margin: 0 0 20px;
-  }
 }
