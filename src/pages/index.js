@@ -101,7 +101,6 @@ const popupAdd = new PopupWithForm({
     temp.link = inputValues.popup__form_link
     popupAdd.close();
     renderCard(temp)
-    popupAdd._popupForm.reset()
     }
   }
 );
