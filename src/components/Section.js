@@ -5,13 +5,17 @@ export default class Section {
     this._container = document.querySelector(containerSelector);
   }
 
+  setInitialCards(arrayWithCards) {
+    this._renderedItems = arrayWithCards;
+}
+
   addItem(element) {
     this._container.prepend(element);
   }
 
   renderItems() {
-    this._renderedItems.forEach(item => {
-      this.renderer(item);
+    this._renderedItems.reverse().forEach((item) => {
+        this.addItem(this.renderer(item));
     });
-  }
+}
 }

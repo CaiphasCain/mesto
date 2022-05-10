@@ -1,0 +1,4 @@
+.element__like_area{
+  display: flex;
+  flex-direction: column;
+}
