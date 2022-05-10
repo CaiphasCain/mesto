@@ -42,5 +42,5 @@
 @import url(../blocks/element/__like_count/element__like_count.css);
 @import url(../blocks/element/__like_area/element__like_area.css);
 @import url(../blocks/popup/__container/_delete/popup__container_delete.css);
-@import url(../blocks/profile/__avatar/_edit/profile__avatar_edit.css);
+@import url(../blocks/profile/__avatar-edit/profile__avatar-edit.css);
 @import url(../blocks/popup/__container/_ava/popup__container_ava.css);
