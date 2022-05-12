@@ -40,7 +40,7 @@ export default class Card {
     this._elementImage.alt = this._name;
     this._elementTitle.textContent = this._name;
     this.countLikes(this._likes)
-    if (!this.isLikedCard()){this.toggleLike}
+    if (this.isLikedCard()){this._elementLike.classList.add('element__like_active')}
     this._addListeners();
     return this._newElement;
   }

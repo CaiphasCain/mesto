@@ -167,8 +167,9 @@ function handlePhoto(desc, img){
 
 function handleDelete (cardId, card){
   popupDelete.open(cardId, card);
-  popupDelete.setEventListeners()
+  
 }
+popupDelete.setEventListeners()
 /////////////////////////////////////////////////////////////////
 function createCard(item) {
   const card = new Card({data: item,
